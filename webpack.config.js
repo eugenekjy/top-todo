@@ -13,7 +13,11 @@ module.exports = {
   devtool: "eval-source-map",
   devServer: {
     watchFiles: ["./src/template.html"],
-    open: true,
+    open: {
+    app: {
+      name: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    }
+  },
     hot: true,
   },
   plugins: [
