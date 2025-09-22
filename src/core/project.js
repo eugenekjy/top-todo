@@ -1,21 +1,21 @@
 import { createTodo } from './todo.js';
 
 export function createProject(name) {
-    return {
-        name,
-        todos: [],
+        
+        const todos = [];
 
-        addTodo(todoData) {
+        const addTodo = (todoData) => {
             const todo = createTodo(todoData);
-            this.todos.push(todo);
-        },
+            todos.push(todo);
+        };
 
-        removeTodo(index) {
-            this.todos.splice(index, 1);
-        },
+        const removeTodo = (index) => {
+            todos.splice(index, 1);
+        };
 
-        getTodos() {
-            return [...this.todos];
-        },
-    };
+        const getTodos = () => [...todos];
+
+        const getName = () => name;
+
+        return { getName, addTodo, removeTodo, getTodos};
 };
