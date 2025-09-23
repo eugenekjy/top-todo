@@ -11,14 +11,46 @@
       <h2>Projects</h2>
       <button id="add-project-btn">+ Add Project</button>
       <ul id="project-list"></ul>
+      
     </aside>
 
     <main id="main">
-      <h2 id="project-title">No project</h2>
-      <ul id="todo-list"></ul>
-      <div style="margin-top:8px">
+      <div class="project-title-container">
+        <h2 id="project-title">No project</h2>
+        <div style="margin-top:8px">
         <button id="add-todo-btn">+ Add Todo</button>
       </div>
+      </div>
+      <ul id="todo-list"></ul>
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" data-close="project-modal">&times;</span>
+        <h2>New Project</h2>
+        <form id="project-form">
+          <input type="text" id="project-name" placeholder="Project name" required />
+          <button type="submit">Add Project</button>
+        </form>
+      </div>
+    </div>  
+    <!-- Todo Modal -->
+    <div id="todo-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" data-close="todo-modal">&times;</span>
+        <h2>New Todo</h2>
+        <form id="todo-form">
+          <input type="text" id="todo-title" placeholder="Todo title" required />
+          <input type="text" id="todo-desc" placeholder="Description" />
+          <input type="date" id="todo-due" />
+          <select id="todo-priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button type="submit">Add Todo</button>
+        </form>
+      </div>
+    </div>
     </main>
   </div>
 </body>

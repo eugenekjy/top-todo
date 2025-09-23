@@ -17,8 +17,7 @@ module.exports = {
     app: {
       name: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
     }
-  },
-    hot: true,
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
