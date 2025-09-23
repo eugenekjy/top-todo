@@ -1,7 +1,7 @@
 import { createElement, clearElement, qs } from './dom.js';
 import { storage } from '../core/storage.js';
 import { createProject } from '../core/project.js';
-import { parseISO, format } from 'date-fns';
+import { parseISO, format, isPast } from 'date-fns';
 
 
 let projects = [];
@@ -89,7 +89,9 @@ function renderTodosForSelected () {
     clearElement(list);
 
     project.getTodos().forEach((todo, index) => {
-        const li = createElement('li', todo.getDone() ? 'todo-done todo-list-block' : 'todo-list-block', '');
+        let displayDate = '-';
+        let isOverdue = false;
+
         const container = createElement('div', '', '');
         //checkbox 
         const cb = document.createElement('input');
@@ -102,16 +104,28 @@ function renderTodosForSelected () {
         });
         //title
         const label = createElement('span', '', todo.title);
+         label.addEventListener('click', () => {
+            smallDiv.classList.toggle('hidden');
+         }); 
+        //div for small
+        const smallDiv = createElement('div', '', '');
         // small details
-        let displayDate = '-';
         if (todo.dueDate) {
             const parsedDate = parseISO(todo.dueDate);
             displayDate = format(parsedDate, 'd MMM yyyy');
+
+            //compare only the date;
+            if (isPast(parsedDate)) isOverdue = true;
         }
-        const small = createElement('small', '', `Due: ${displayDate} • ${todo.priority || '—'}`);
-        
+        //main li
+        const li = createElement('li',
+        (todo.getDone() ? 'todo-done todo-list-block' : 'todo-list-block') + (isOverdue ? ' overdue' : ''),'');
+        //small
+        const small = createElement('small', '', `Due: ${displayDate} • `);
+        // prioritySpan
+        const prioritySpan = createElement('span', `priority ${todo.priority.toLowerCase()}`, todo.priority || '-');
         //delete button
-        const deleteButton = createElement('button', '', 'Delete');
+        const deleteButton = createElement('button', '', 'x');
         deleteButton.addEventListener('click', (e) => {
             e.stopPropagation();
             project.removeTodo(index);
@@ -121,7 +135,9 @@ function renderTodosForSelected () {
         //assembly
         container.appendChild(cb);
         container.appendChild(label);
-        container.appendChild(small);
+        smallDiv.appendChild(small);
+        small.appendChild(prioritySpan);
+        container.appendChild(smallDiv);
         li.appendChild(container);
         li.appendChild(deleteButton);
 
