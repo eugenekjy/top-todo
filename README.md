@@ -6,3 +6,5 @@ Build a task manager in JavaScript that lets users:
 	•	Use modules, classes, and webpack
 
     Try to use SOLID Principles and composition over inheritance.
+
+	Not much css is used. But focused on learning the JS priunciples
